@@ -1,0 +1,24 @@
+{
+    "name": "seoulventures/sv-dt-laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cocoa Hoto",
+            "email": "cocoa@hoto.us"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "SeoulVentures\\SvDataTable\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SeoulVentures\\SvDataTable\\DataTableServiceProvider"
+            ]
+        }
+    }
+}
