@@ -27,7 +27,7 @@ class DataTableApiController extends Controller
         ]);
 
         $page = intval($options['page'] ?? 1);
-        $perPage = intval($options['perPage'] ?? 50);
+        $perPage = intval($options['perPage'] ?? 15);
         $parameters = json_decode($options['parameters'] ?? '{}');
 
         $contents = collect(DB::select($m->query, get_object_vars($parameters)));
@@ -96,31 +96,5 @@ class DataTableApiController extends Controller
                 ]
             ]
         ]);
-    }
-
-    function headers(Request $request) {
-        $options = $request->all([
-            'queryId',
-            'parameters'
-        ]);
-        $parameters = json_decode($options['parameters'] ?? '{}');
-
-        $m = SvDtQuery::find($options['queryId']);
-        if(!$m) return response()->json([]);
-
-        $content = DB::select($m->query, get_object_vars($parameters))[0];
-        if(!$content) return response()->json([]);
-
-        $data = get_object_vars($content);
-        return response()->json(array_map(fn($row) => [
-            'header' => Str::title(Str::replace('_', ' ', $row)),
-            'name' => $row,
-            'filter' => [
-                'type' => is_integer($data[$row]) ? 'number' : 'text',
-                'showApplyBtn' => true,
-                'showClearBtn' => true
-            ],
-            'sortable' => true
-        ], array_keys($data)));
     }
 }
