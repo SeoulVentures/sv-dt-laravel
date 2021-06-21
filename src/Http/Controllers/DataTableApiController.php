@@ -30,7 +30,7 @@ class DataTableApiController extends Controller
         $perPage = intval($options['perPage'] ?? 15);
         $parameters = json_decode($options['parameters'] ?? '{}');
 
-        $contents = collect(DB::select($m->query, get_object_vars($parameters)));
+        $contents = collect(DB::connection($m->connection)->select($m->query, get_object_vars($parameters)));
 
         if($options['sortColumn']) {
             $contents = $contents->sortBy([
