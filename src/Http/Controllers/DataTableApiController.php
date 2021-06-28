@@ -82,7 +82,7 @@ class DataTableApiController extends Controller
         $contents = $contents->slice(($page - 1) * $perPage, $perPage)->values()->toArray();
         $contents = array_map(function($row) {
             $keys = array_keys(get_object_vars($row));
-            foreach($keys as $key) $row->{$key} = htmlentities(trim($row->{$key}));
+            foreach($keys as $key) $row->{$key} = trim($row->{$key});
             return $row;
         }, $contents);
 
